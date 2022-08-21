@@ -1,6 +1,6 @@
-# FeO3: A finite element library
+# Fe2O3: A finite element library
 
-FeO3 is a generic scientific computation library focusing on finite elements written in [rust](https://www.rust-lang.org/).
+Fe2O3 is a generic scientific computation library focusing on finite elements written in [rust](https://www.rust-lang.org/).
 
 ## History
 
