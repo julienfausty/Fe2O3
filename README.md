@@ -8,7 +8,7 @@ The project started out around a beer between three buddies looing to improve th
 
 ## Building
 
-Being a rust project, FeO3 uses the [cargo](https://doc.rust-lang.org/cargo/) framework for building and testing.
+Being a rust project, Fe2O3 uses the [cargo](https://doc.rust-lang.org/cargo/) framework for building and testing.
 
 ## Contributing
 
