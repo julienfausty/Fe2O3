@@ -1,6 +1,6 @@
-# FeO3: A finite element library
+# Fe2O3: A finite element library
 
-FeO3 is a generic scientific computation library focusing on finite elements written in [rust](https://www.rust-lang.org/).
+Fe2O3 is a generic scientific computation library focusing on finite elements written in [rust](https://www.rust-lang.org/).
 
 ## History
 
@@ -8,7 +8,7 @@ The project started out around a beer between three buddies looing to improve th
 
 ## Building
 
-Being a rust project, FeO3 uses the [cargo](https://doc.rust-lang.org/cargo/) framework for building and testing.
+Being a rust project, Fe2O3 uses the [cargo](https://doc.rust-lang.org/cargo/) framework for building and testing.
 
 ## Contributing
 
