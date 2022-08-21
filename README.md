@@ -1,4 +1,4 @@
-### FeO3: A finite element library
+# FeO3: A finite element library
 
 FeO3 is a generic scientific computation library focusing on finite elements written in [rust](https://www.rust-lang.org/).
 
@@ -12,13 +12,17 @@ Being a rust project, FeO3 uses the [cargo](https://doc.rust-lang.org/cargo/) fr
 
 ## Contributing
 
-# Formating
+### Development Workflow
+
+For now, please perform changes in a separate branch (hopefully well named to reflect the changes it provides) and propose a merge request for review before merging into `master`.
+
+### Formating
 
 Let's try and follow the rust standard naming conventions defined [here](https://rust-lang.github.io/api-guidelines/naming.html).
 
 Be sure to run [rustfmt](https://github.com/rust-lang/rustfmt) on your code before proposing it up for review and adding it into the repository (right now all the formating is just the default rust formating).
 
-# Testing
+### Testing
 
 Every new development should have associated unit testing. Developments that do not have unit tests will most likely not pass review.
 
