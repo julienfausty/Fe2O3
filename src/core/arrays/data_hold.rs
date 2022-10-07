@@ -223,8 +223,8 @@ mod tests {
     fn test_data_hold_resize() {
         let mut hold: DataHold<i32, Vec<usize>> = DataHold(vec![], vec![]);
         hold.resize(vec![6, 3, 5], 0);
-        assert_eq!(hold.len(), 6*3*5, "Did not resize data correctly");
-        let dims = vec![6,3,5];
+        assert_eq!(hold.len(), 6 * 3 * 5, "Did not resize data correctly");
+        let dims = vec![6, 3, 5];
         for (iv, it) in zip(hold.dimensions().iter(), dims.iter()) {
             assert_eq!(iv, it, "Did not set dimensions correctly during resize");
         }

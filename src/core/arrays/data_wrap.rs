@@ -1,7 +1,7 @@
+use super::data_traits::{DataContainer, DataMutator};
 use crate::{default_tuple_data_container, default_tuple_data_mutator};
 use std::convert::{AsMut, AsRef};
 use std::ops::{Deref, DerefMut};
-use super::data_traits::{DataContainer, DataMutator};
 
 //--------------------------------------------------------------------------------------------------
 // # Structs
@@ -10,7 +10,7 @@ use super::data_traits::{DataContainer, DataMutator};
 /// Utility structure for wrapping multi-dimensional data with write access
 ///
 /// A DataWrap is meant to be used when one wants to read data as a multi-dimensional array in a
-/// mutable way but still not control allocation and sizing. 
+/// mutable way but still not control allocation and sizing.
 ///
 /// Please see documentation of DataView for layout details.
 pub struct DataWrap<'a, DataType, DimType: AsRef<[usize]>>(&'a mut [DataType], DimType);

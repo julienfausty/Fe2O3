@@ -1,7 +1,7 @@
+use super::data_traits::DataContainer;
 use crate::default_tuple_data_container;
 use std::convert::AsRef;
 use std::ops::Deref;
-use super::data_traits::DataContainer;
 
 //--------------------------------------------------------------------------------------------------
 // # Structs
@@ -20,7 +20,7 @@ use super::data_traits::DataContainer;
 /// Data: v0 | v1 | v2 | ... | vn
 /// Dimensions: d0 | d1
 ///
-/// MultiDimViewOfData: 
+/// MultiDimViewOfData:
 /// v0 | ... | v(d1-1)
 /// v(d1) | ... | v(2d1 - 1)
 ///         ...
