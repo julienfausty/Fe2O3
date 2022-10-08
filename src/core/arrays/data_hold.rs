@@ -17,6 +17,13 @@ use std::ops::{Deref, DerefMut};
 /// Please see documentation of DataView for layout details.
 pub struct DataHold<DataType: Clone, DimType: AsRef<[usize]>>(Vec<DataType>, DimType);
 
+impl<DataType: Clone, DimType: AsRef<[usize]>> DataHold<DataType, DimType> {
+    // Public constructor
+    pub fn new(data: Vec<DataType>, shape: DimType) -> Self {
+        Self(data, shape)
+    }
+}
+
 // Make the DataHold behave like a &[DataType]
 impl<DataType: Clone, DimType: AsRef<[usize]>> Deref for DataHold<DataType, DimType> {
     type Target = [DataType];

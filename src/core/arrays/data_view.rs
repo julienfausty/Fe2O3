@@ -27,6 +27,12 @@ use std::ops::Deref;
 /// v((d0-1)d1) | ... | vn
 pub struct DataView<'a, DataType, DimType: AsRef<[usize]>>(&'a [DataType], DimType);
 
+impl<'a, DataType, DimType: AsRef<[usize]>> DataView<'a, DataType, DimType> {
+    pub fn new(arr: &'a [DataType], shp: DimType) -> Self {
+        Self(arr, shp)
+    }
+}
+
 // Make the DataView behave like a reference to an array of DataType
 impl<'a, DataType, DimType: AsRef<[usize]>> Deref for DataView<'a, DataType, DimType> {
     type Target = [DataType];
