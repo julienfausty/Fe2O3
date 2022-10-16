@@ -1,6 +1,5 @@
-use super::{FiniteSet, FiniteSetIterator, Set};
-use crate::core::arrays::{DataContainer, DataHold, DataMix};
-use crate::core::types::Fe2O3SizeType;
+use super::{FiniteSet, FiniteSetIterator};
+use crate::core::arrays::DataHold;
 use std::ops::Fn;
 use std::vec::Vec;
 
@@ -12,7 +11,7 @@ pub trait TopologyBasis {
     type SubSetHandleT;
     fn get_element(
         &self,
-        handle: &Self::SubSetHandleT,
+        handle: Self::SubSetHandleT,
     ) -> Option<DataHold<Self::SetHandleT, Vec<usize>>>;
 }
 
@@ -22,14 +21,14 @@ pub trait TopologyBasis {
 
 pub struct ImplicitTopologyBasis<HandleT: Clone, Closure>
 where
-    Closure: Fn(&usize) -> Option<DataHold<HandleT, Vec<usize>>>,
+    Closure: Fn(usize) -> Option<DataHold<HandleT, Vec<usize>>>,
 {
     mapper: Closure,
 }
 
 impl<HandleT: Clone, Closure> ImplicitTopologyBasis<HandleT, Closure>
 where
-    Closure: Fn(&usize) -> Option<DataHold<HandleT, Vec<usize>>>,
+    Closure: Fn(usize) -> Option<DataHold<HandleT, Vec<usize>>>,
 {
     pub fn new(map: Closure) -> Self {
         ImplicitTopologyBasis { mapper: map }
@@ -38,11 +37,11 @@ where
 
 impl<HandleT: Clone, Closure> TopologyBasis for ImplicitTopologyBasis<HandleT, Closure>
 where
-    Closure: Fn(&usize) -> Option<DataHold<HandleT, Vec<usize>>>,
+    Closure: Fn(usize) -> Option<DataHold<HandleT, Vec<usize>>>,
 {
     type SetHandleT = HandleT;
     type SubSetHandleT = usize;
-    fn get_element(&self, handle: &Self::SubSetHandleT) -> Option<DataHold<HandleT, Vec<usize>>> {
+    fn get_element(&self, handle: Self::SubSetHandleT) -> Option<DataHold<HandleT, Vec<usize>>> {
         (self.mapper)(handle)
     }
 }
@@ -68,32 +67,8 @@ impl<'a, HandleT: Clone> TopologyBasis for ExplicitTopologyBasis<'a, HandleT> {
     type SubSetHandleT = usize;
     fn get_element(
         &self,
-        handle: &Self::SubSetHandleT,
+        handle: Self::SubSetHandleT,
     ) -> Option<DataHold<Self::SetHandleT, Vec<usize>>> {
-        let card = match self.basis.cardinality() {
-            Fe2O3SizeType::Finite(c) => c,
-            _ => panic!("Cardinality of finite set is not finite!"),
-        };
-        if handle > &card {
-            return None;
-        }
-        let element_size = match &self.basis.elements {
-            DataMix::View(v) => v.len() / v.dimensions()[0],
-            DataMix::Wrap(w) => w.len() / w.dimensions()[0],
-            DataMix::Hold(h) => h.len() / h.dimensions()[0],
-        };
-        let start_index = element_size * handle;
-        let mut el_shape: Vec<usize> = vec![0; element_size];
-        if element_size == 1 {
-            el_shape[0] = 1;
-        } else {
-            el_shape.copy_from_slice(&self.basis.elements.dimensions()[1..]);
-        }
-        let slice = match &self.basis.elements {
-            DataMix::View(v) => &v[start_index..start_index + element_size],
-            DataMix::Wrap(w) => &w[start_index..start_index + element_size],
-            DataMix::Hold(h) => &h[start_index..start_index + element_size],
-        };
-        Some(DataHold::new(slice.to_vec(), el_shape))
+        self.basis.get_element(handle)
     }
 }
