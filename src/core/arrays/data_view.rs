@@ -1,7 +1,7 @@
+use super::data_traits::DataContainer;
 use crate::default_tuple_data_container;
 use std::convert::AsRef;
 use std::ops::Deref;
-use super::data_traits::DataContainer;
 
 //--------------------------------------------------------------------------------------------------
 // # Structs
@@ -20,12 +20,18 @@ use super::data_traits::DataContainer;
 /// Data: v0 | v1 | v2 | ... | vn
 /// Dimensions: d0 | d1
 ///
-/// MultiDimViewOfData: 
+/// MultiDimViewOfData:
 /// v0 | ... | v(d1-1)
 /// v(d1) | ... | v(2d1 - 1)
 ///         ...
 /// v((d0-1)d1) | ... | vn
 pub struct DataView<'a, DataType, DimType: AsRef<[usize]>>(&'a [DataType], DimType);
+
+impl<'a, DataType, DimType: AsRef<[usize]>> DataView<'a, DataType, DimType> {
+    pub fn new(arr: &'a [DataType], shp: DimType) -> Self {
+        Self(arr, shp)
+    }
+}
 
 // Make the DataView behave like a reference to an array of DataType
 impl<'a, DataType, DimType: AsRef<[usize]>> Deref for DataView<'a, DataType, DimType> {

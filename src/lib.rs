@@ -1,6 +1,5 @@
 //! Fe2O3: a finite element rust library
 
-
 // Here we define the basic blocks that we need in our library and how we're going to cut them up
 //
 // They are ordered by some hierarchy of dependence (spaces depends on core and discretizations will depend

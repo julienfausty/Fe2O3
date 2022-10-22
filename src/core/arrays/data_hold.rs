@@ -17,6 +17,13 @@ use std::ops::{Deref, DerefMut};
 /// Please see documentation of DataView for layout details.
 pub struct DataHold<DataType: Clone, DimType: AsRef<[usize]>>(Vec<DataType>, DimType);
 
+impl<DataType: Clone, DimType: AsRef<[usize]>> DataHold<DataType, DimType> {
+    // Public constructor
+    pub fn new(data: Vec<DataType>, shape: DimType) -> Self {
+        Self(data, shape)
+    }
+}
+
 // Make the DataHold behave like a &[DataType]
 impl<DataType: Clone, DimType: AsRef<[usize]>> Deref for DataHold<DataType, DimType> {
     type Target = [DataType];
@@ -223,8 +230,8 @@ mod tests {
     fn test_data_hold_resize() {
         let mut hold: DataHold<i32, Vec<usize>> = DataHold(vec![], vec![]);
         hold.resize(vec![6, 3, 5], 0);
-        assert_eq!(hold.len(), 6*3*5, "Did not resize data correctly");
-        let dims = vec![6,3,5];
+        assert_eq!(hold.len(), 6 * 3 * 5, "Did not resize data correctly");
+        let dims = vec![6, 3, 5];
         for (iv, it) in zip(hold.dimensions().iter(), dims.iter()) {
             assert_eq!(iv, it, "Did not set dimensions correctly during resize");
         }
